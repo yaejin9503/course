@@ -1,7 +1,7 @@
 // @ts-check
 
-const { resolve } = require('path/posix');
-const { setTokenSourceMapRange } = require('typescript');
+// const { resolve } = require('path/posix');
+// const { setTokenSourceMapRange } = require('typescript');
 
 // Formatting, Linting ,Type Checking !
 // Formatting : Prettier
@@ -124,14 +124,56 @@ const { setTokenSourceMapRange } = require('typescript');
 // }
 // console.log(petCity());
 
-new Promise((resolve, reject) => {
-  console.log('Before timeout!');
-  setTimeout(() => {
-    resolve(Math.random());
-    console.log('After resolve');
-  }, 1000);
-}).then((value) => {
-  console.log('value', value);
-});
+// new Promise((resolve, reject) => {
+//   console.log('Before timeout!');
+//   setTimeout(() => {
+//     resolve(Math.random());
+//     console.log('After resolve');
+//   }, 1000);
+// }).then((value) => {
+//   console.log('value', value);
+// });
 
 /** 비동기 코드를 순차적으로 시행 할 수 있게 하는 Promise */
+
+//require('core-js'); // 해당 노드 버전에없는 함수도 사용할 수 있음
+
+// const complicatedArray = [1, [2, 3]];
+// console.log(complicatedArray.flat());
+
+// 프레임워크 없이 간단한 RESTful API 서버 만들어보기
+/**
+ * 블로그 포스팅 서비스
+ */
+
+const http = require('http');
+
+/**
+ * post
+ * GET /posts
+ * GEt /posts/:id
+ * POST /posts
+ */
+
+const server = http.createServer((req, res) => {
+  res.statusCode = 200;
+  res.end('hello');
+  if (req.url === '/posts' && req.method === 'GET') {
+    res.statusCode = 200;
+    res.end('OK');
+  } else if (req.url === '/posts/:id') {
+    res.statusCode = 200;
+    res.end('Some content of the post');
+  } else if (req.url === '/posts' && req.method === 'POST') {
+    res.statusCode = 200;
+    res.end('Creating post');
+  } else {
+    res.statusCode = 404;
+    res.end('Not found');
+  }
+});
+
+const PORT = 4000;
+server.listen(PORT, () => {
+  console.log(`The server is listening at port: ${PORT}`);
+});
